@@ -1,12 +1,12 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 import os
 import json
 from ..base import *
+import random
 
 
 @register([u'必应图片', u'Bing-Images'])
 class Bing_Images(WebService):
-
     bing_download_img = True
 
     def __init__(self):
@@ -20,8 +20,11 @@ class Bing_Images(WebService):
             'img': '',
         }
 
-        #图片连接
-        tag = soup.find('a', class_='iusc')
+        # 图片连接
+        # tag = soup.find('a', class_='iusc')
+        tag_list = soup.find_all('a', class_='iusc')
+        i = random.randrange(0, len(tag_list))
+        tag = tag_list[i]
         if tag:
             try:
                 data = json.loads(tag.get('m'))
